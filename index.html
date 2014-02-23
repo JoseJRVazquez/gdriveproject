@@ -2,6 +2,7 @@
 <html>
 	<head>
 
+
 		<title>
 
 		</title>
@@ -15,5 +16,38 @@
 			data-filename="pug.jpg"
 			data-sitename="Pictures of Pugs">
 		</div>
+
+		<script>
+			function onApiload() {
+				gapi.load('auth', {'callback': onAuthApiLoad});
+				gapi.load('picker');
+			}
+			function onAuthApiLoad(){
+				window.gapi.auth.authorize({
+					'client_id': '596875534635.apps.googleusercontent.com',
+					'scope': ['https://www.googleapis.com/auth/drive']
+				},  handleAuthResult);
+			}
+			var oauthToken;
+			function handleAuthResult(authResult) {
+				if (authResult && !authResult.error) {
+					oauthToken = authReults.access_token;
+					createPicker();
+				}
+			}
+			function createPicker() {
+				var picker = new google.picker.PickerBuilder()
+					.addView(new google.picker.DocsUploadView())
+					.addView(new google.picker.DocsView())
+					.setAuthToken
+					.setDeveloperKey('AIzaSyBTsUe7i_eezFJ3ndIT8axJCR6IpksyLs8')
+					.build();
+				picker.setVisible(true);
+			}
+		</script>
+		<script src="https://apis.google.com/js/api.js?onload-onApiLoad">
+		</script>
+		
+
 	</body>
 </html>
